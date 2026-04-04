@@ -721,7 +721,29 @@ local UpdatingFunctions = {
 				setrenderproperty(BoxObject, Index, Value)
 			end
 
-			setrenderproperty(BoxObject, "Color", CoreFunctions.GetColor(Entry.Object, Settings.RainbowColor and CoreFunctions.GetRainbowColor() or Settings.Color))
+			local Player = Entry.Object
+
+local function IsSameTeam(player)
+    local localTeamVal = LocalPlayer:FindFirstChild("TeamValue", true)
+    local playerTeamVal = player:FindFirstChild("TeamValue", true)
+
+    if localTeamVal and playerTeamVal then
+        return playerTeamVal.Value == localTeamVal.Value
+    elseif player.Team and LocalPlayer.Team then
+        return player.Team == LocalPlayer.Team
+    else
+        return false
+    end
+end
+
+local color
+if IsSameTeam(Player) then
+    color = Color3.fromRGB(0,255,0)
+else
+    color = Color3.fromRGB(255,0,0)
+end
+
+setrenderproperty(BoxObject, "Color", color)
 
 			if Settings.Outline then
 				setrenderproperty(BoxOutlineObject, "Position", Position)
