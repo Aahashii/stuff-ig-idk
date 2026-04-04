@@ -1,0 +1,76 @@
+
+_G.triggerbot = true 
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local mouse = player:GetMouse()
+
+local Clicked = false
+local scriptEnabled = true
+local headOnly = true -- toggle state
+
+-- notification function
+
+-- TEST mouse1click()
+local success = pcall(function()
+	mouse1click()
+end)
+
+if not success then
+	scriptEnabled = false
+	return
+end
+
+-- // Side Scripts \\ --
+
+game:GetService("UserInputService").InputBegan:Connect(function(Input, GameProcessedEvent)
+	if GameProcessedEvent then
+		return
+	end
+
+	-- Toggle triggerbot
+	if Input.KeyCode == Enum.KeyCode.Equals then
+		_G.triggerbot = not _G.triggerbot
+		
+	
+	end
+
+	-- Toggle head/whole body mode
+	
+end)
+
+-- // Main Scripts \\ --
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	if not scriptEnabled then return end
+	if not mouse.Target then return end
+    gam:GetService("UserInputService").MouseIconEnabled = true
+	local targetPart = mouse.Target
+	local character = targetPart:FindFirstAncestorOfClass("Model")
+	if not character then return end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if humanoid and _G.triggerbot then
+		
+		local targetPlayer = Players:GetPlayerFromCharacter(character)
+
+		-- TEAM CHECK
+		if targetPlayer and targetPlayer.Team == player.Team then
+			return
+		end
+
+		-- HEAD ONLY CHECK
+		if headOnly and targetPart.Name ~= "Head" then
+			return
+		end
+
+		if humanoid.Health > 0 and character.Name ~= player.Name then
+			mouse1click()
+			Clicked = false
+		end
+
+
+	elseif not _G.triggerbot then
+		Clicked = true
+	end
+end)
