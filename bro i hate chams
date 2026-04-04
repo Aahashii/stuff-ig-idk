@@ -324,7 +324,13 @@ local function GetPlayerColor(player)
         if Settings.RainbowTracers and Settings.TracerESP then return Colors.Rainbow end
         if Settings.RainbowText and (Settings.NameESP or Settings.HealthESP) then return Colors.Rainbow end
     end
-    return player.Team == LocalPlayer.Team and Colors.Ally or Colors.Enemy
+    local returning = nil
+    if LocalPlayer:FindFirstChild("TeamValue",true) then
+        returning =  player:FindFirstChild("TeamValue",true).Value == LocalPlayer:FindFirstChild("TeamValue",true).Value and Colors.Ally or Colors.Enemy
+    else
+        returning = player.Team == LocalPlayer.Team and Colors.Ally or Colors.Enemy
+    end
+    return returning
 end
 
 local function GetBoxCorners(cf, size)
@@ -846,7 +852,7 @@ local function CleanupESP()
 
 local Window = Fluent:CreateWindow({
     Title = "WA Universal ESP",
-    SubTitle = "by WA",
+    SubTitle = "by WA, modified by Aahashii",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
     Acrylic = false,
@@ -879,7 +885,13 @@ do
             end
         end
     end)
-    
+     MainSection:AddButton({
+        Title = "Add TriggerBot",
+        Description = "duh",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/Aahashii/stuff-ig-idk/refs/heads/main/digga%20bot")()
+        end
+    })
     local TeamCheckToggle = MainSection:AddToggle("TeamCheck", {
         Title = "Team Check",
         Default = false
@@ -895,7 +907,15 @@ do
     ShowTeamToggle:OnChanged(function()
         Settings.ShowTeam = ShowTeamToggle.Value
     end)
-    
+
+    local TriggerBotToggle = MainSection:AddToggle("ShowTeam", {
+        Title = "Show Team",
+        Default = false
+    })
+    ShowTeamToggle:OnChanged(function()
+        Settings.ShowTeam = ShowTeamToggle.Value
+    end)
+
     local BoxSection = Tabs.ESP:AddSection("Box ESP")
     
     local BoxESPToggle = BoxSection:AddToggle("BoxESP", {
