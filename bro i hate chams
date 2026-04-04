@@ -890,17 +890,20 @@ do
         Title = "Add TriggerBot",
         Description = "duh",
         Callback = function()
-          loadstring(game:HttpGet("https://raw.githubusercontent.com/Aahashii/stuff-ig-idk/refs/heads/main/digga%20bot")()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/Aahashii/stuff-ig-idk/refs/heads/main/digga%20bot"))()
         end
     })
     MainSection:AddButton({
         Title = "Fireteam Notify",
         Description = "Announce le fire team points",
         Callback = function()
+           local teamOne = workspace:FindFirstChild("TeamOne", true)
+            local teamTwo = workspace:FindFirstChild("TeamTwo", true)
+            
             Window:Dialog({
                 Title = "FireTeam Notify Points",
-                Content = "Team One:" .. workspace:FindFirstChild("TeamOne",true).Value .. " Team Two:" .. workspace:FindFirstChild("TeamTwo",true).Value,
-                        
+                Content = "Team One:" .. (teamOne and teamOne.Value or "N/A") ..
+                          " Team Two:" .. (teamTwo and teamTwo.Value or "N/A"),
             })
         end
     })
