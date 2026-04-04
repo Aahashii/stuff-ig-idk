@@ -868,7 +868,8 @@ local Tabs = {
 
 do
     local MainSection = Tabs.ESP:AddSection("Main ESP")
-    
+
+     
     local EnabledToggle = MainSection:AddToggle("Enabled", {
         Title = "Enable ESP",
         Default = false
@@ -890,6 +891,17 @@ do
         Description = "duh",
         Callback = function()
           loadstring(game:HttpGet("https://raw.githubusercontent.com/Aahashii/stuff-ig-idk/refs/heads/main/digga%20bot")()
+        end
+    })
+    MainSection:AddButton({
+        Title = "Fireteam Notify",
+        Description = "Announce le fire team points",
+        Callback = function()
+            Window:Dialog({
+                Title = "FireTeam Notify Points",
+                Content = "Team One:" .. workspace:FindFirstChild("TeamOne",true).Value .. " Team Two:" .. workspace:FindFirstChild("TeamTwo",true).Value,
+                        
+            })
         end
     })
     local TeamCheckToggle = MainSection:AddToggle("TeamCheck", {
