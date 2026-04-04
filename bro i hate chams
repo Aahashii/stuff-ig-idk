@@ -901,10 +901,18 @@ do
             local teamTwo = workspace:FindFirstChild("TeamTwo", true)
             
             Window:Dialog({
-                Title = "FireTeam Notify Points",
-                Content = "Team One:" .. (teamOne and teamOne.Value or "N/A") ..
-                          " Team Two:" .. (teamTwo and teamTwo.Value or "N/A"),
-            })
+                            Title = "FireTeam Notify Points",
+                            Content = "Team One: " .. (teamOne and teamOne.Value or "N/A") ..
+                                      " | Team Two: " .. (teamTwo and teamTwo.Value or "N/A"),
+                            Buttons = {
+                                {
+                                    Title = "OK",
+                                    Callback = function()
+                                        print("Dialog closed")
+                                    end
+                                }
+                            }
+                        })
         end
     })
     local TeamCheckToggle = MainSection:AddToggle("TeamCheck", {
