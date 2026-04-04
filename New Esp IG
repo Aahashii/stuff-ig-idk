@@ -9,13 +9,6 @@ local Window = Library:CreateWindow({
     AutoShow = true
 })
 
-MainGroup:AddToggle("ESPEnabled", {
-    Text = "Enable ESP",
-    Default = true,
-    Callback = function(Value)
-        Environment.Settings.Enabled = Value
-    end
-})
 local Tabs = {
     Main = Window:AddTab("Main"),
     Visuals = Window:AddTab("Visuals")
