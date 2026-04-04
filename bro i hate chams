@@ -931,13 +931,7 @@ do
         Settings.ShowTeam = ShowTeamToggle.Value
     end)
 
-    local TriggerBotToggle = MainSection:AddToggle("ShowTeam", {
-        Title = "Show Team",
-        Default = false
-    })
-    ShowTeamToggle:OnChanged(function()
-        Settings.ShowTeam = ShowTeamToggle.Value
-    end)
+    
 
     local BoxSection = Tabs.ESP:AddSection("Box ESP")
     
