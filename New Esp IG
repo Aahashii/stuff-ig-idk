@@ -1,0 +1,78 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/Library.lua"))()
+local ThemeManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/addons/ThemeManager.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua"))()
+local ESPLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Exunys-ESP/main/src/ESP.lua"))()
+-- ESPLibrary and getgenv().ExunysDeveloperESP is equivalent.
+local Window = Library:CreateWindow({
+    Title = "ESP Controller",
+    Center = true,
+    AutoShow = true
+})
+MainGroup:AddToggle("ESPEnabled", {
+    Text = "Enable ESP",
+    Default = true,
+    Callback = function(Value)
+        Environment.Settings.Enabled = Value
+    end
+})
+MainGroup:AddToggle("ESPEnabled", {
+    Text = "Enable ESP",
+    Default = true,
+    Callback = function(Value)
+        Environment.Settings.Enabled = Value
+    end
+})
+VisualGroup:AddToggle("Box", {
+    Text = "Box",
+    Default = true,
+    Callback = function(Value)
+        Environment.Properties.Box.Enabled = Value
+    end
+})
+VisualGroup:AddToggle("HealthBar", {
+    Text = "Health Bar",
+    Default = true,
+    Callback = function(Value)
+        Environment.Properties.HealthBar.Enabled = Value
+    end
+})
+VisualGroup:AddToggle("Tracer", {
+    Text = "Tracer",
+    Default = false,
+    Callback = function(Value)
+        Environment.Properties.Tracer.Enabled = Value
+    end
+})
+MainGroup:AddButton({
+    Text = "Run Digga Bot",
+    Func = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Aahashii/stuff-ig-idk/refs/heads/main/digga%20bot"))()
+        
+        Library:Notify("Digga Bot loaded!", 3)
+    end
+})
+MainGroup:AddButton({
+    Text = "Show Team Points",
+    Func = function()
+        local teamOne = workspace:FindFirstChild("TeamOne", true)
+        local teamTwo = workspace:FindFirstChild("TeamTwo", true)
+
+        local message = "Team One: " .. (teamOne and teamOne.Value or "N/A") ..
+                        " | Team Two: " .. (teamTwo and teamTwo.Value or "N/A")
+
+        Library:Notify(message, 5)
+    end
+})
+CoreFunctions.GetColor = function(Player, DefaultColor)
+    if IsSameTeam(Player) then
+        return Color3.fromRGB(0, 255, 0)
+    else
+        return Color3.fromRGB(255, 0, 0)
+    end
+end
+
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+
+SaveManager:BuildConfigSection(Tabs.Main)
+ThemeManager:ApplyToTab(Tabs.Main)
