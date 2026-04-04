@@ -8,6 +8,7 @@ local Window = Library:CreateWindow({
     Center = true,
     AutoShow = true
 })
+
 MainGroup:AddToggle("ESPEnabled", {
     Text = "Enable ESP",
     Default = true,
@@ -15,6 +16,13 @@ MainGroup:AddToggle("ESPEnabled", {
         Environment.Settings.Enabled = Value
     end
 })
+local Tabs = {
+    Main = Window:AddTab("Main"),
+    Visuals = Window:AddTab("Visuals")
+}
+
+local MainGroup = Tabs.Main:AddLeftGroupbox("Main Controls")
+local VisualGroup = Tabs.Visuals:AddLeftGroupbox("ESP Settings")
 MainGroup:AddToggle("ESPEnabled", {
     Text = "Enable ESP",
     Default = true,
